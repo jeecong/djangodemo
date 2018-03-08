@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+	<title>帖子详情</title>
+
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		body{
+			background: #efefef;
+		}
+		#con{
+			background:white;
+			width:800px;
+			min-height:600px;
+			margin:0 auto;
+			padding:20px;
+			position:relative;
+		}
+		#title{
+			font:30px/36px '微软雅黑';
+			color: #1e73be;
+		}
+		#content{
+			margin-top: 20px;
+			font-size: 15px;
+			line-height: 29px;
+			color: #3a3a3a;
+		}
+		#time{
+			font-size: 12px;
+			line-height: 18px;
+			color: #888;
+		}
+		#pub{
+			font-size: 15px;
+			line-height: 18px;
+			color: #888;
+
+			margin-left:10px;
+		}
+		input{
+			width:60px;
+			height:30px;
+			background:#77ffcc;
+			opacity:0.6;
+			position:absolute;
+			right:30px;
+			top: 50px;
+		}
+		input:hover{
+			background:#bbbbbb;
+		}
+	</style>
+
+
+
+
+</head>
+<body>
+	<div id="con">
+
+		<p id="title">{{notes.title}}</p>
+		<span id="pub">作者:{{notes.publisher.nickname}}</span>
+		<p id="time">{{notes.time}}</p>
+
+
+
+		<p id="content">{{notes.content}}</p>
+		<input type="button" id="{{notes.id}}" onclick="deletenotes(this)" value="删除">
+	</div>
+
+
+
+
+
+</body>
+<script>
+//删除帖子
+		function deletenotes(element){
+			//alert (element.id)
+			var xhr = new XMLHttpRequest()
+			xhr.onreadystatechange = function(e){
+				if (xhr.readyState==4) {
+					if (xhr.status==200) {
+
+						//alert(xhr.responseText)
+						if (xhr.responseText=='ok') {
+							alert('删除成功')
+
+							window.history.go(-1);
+						};
+					};
+				};
+
+			}
+
+			xhr.open('post','delete',true)
+
+			xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
+			xhr.send("notesid="+element.id)
+		}
+</script>
+</html>

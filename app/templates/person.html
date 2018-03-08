@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+
+	<title>{{userinfo.nickname}}的主页</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;}
+		body{
+			background: #efefef;
+		}
+		header{
+			height: 200px;
+			position: relative;
+		}
+		header #all{
+			width: 1100px;
+			margin: 0 auto;
+
+		}
+		header img{
+			width: 150px;
+			height: 150px;
+			border-radius: 75px;
+			margin-top: 25px;
+
+		}
+		header #hed{
+			position: absolute;
+			left: 300px;
+			top: 55px;
+		}
+		header h1{
+			font-size: 45px;
+			line-height: 54px;
+		}
+		header h3{
+			font-size: 15px;
+			line-height: 22.5px;
+			color: #999999;
+			margin-top: 10px;
+		}
+		nav{
+			background: #222;
+		}
+		nav ul{
+			height: 60px;
+			width: 1100px;
+			margin: 0 auto;
+		}
+		nav ul li{
+			list-style: none;
+			float: left;
+		}
+		nav ul li a{
+			text-decoration: none;
+			display: block;
+			padding: 0 20px;
+			font-size: 18px;
+			line-height: 60px;
+			color: white;
+		}
+		nav ul li a:hover{
+			background: #3f3f3f;
+		}
+		#main{
+			width: 1100px;
+			margin: 0 auto;
+		}
+		#lside{
+			width: 805px;
+			float: left;
+		}
+		article{
+			background: white;
+			margin-bottom: 20px;
+			padding: 40px;
+		}
+		article #content{
+			margin-top: 20px;
+			font-size: 15px;
+			line-height: 29px;
+			color: #3a3a3a;
+		}
+		article h2{
+			font:30px/36px '微软雅黑';
+			color: #1e73be;
+		}
+		article time{
+			font-size: 12px;
+			line-height: 18px;
+			color: #888;
+		}
+		article:first-child{
+			margin-top: 20px;
+		}
+		#rside{
+			width: 275px;
+			float: right;
+		}
+		#aside{
+			background: white;
+			margin-bottom: 20px;
+			padding: 40px;
+		}
+		#aside h4{
+			font-size: 20px;
+			margin-bottom: 30px;
+		}
+		#aside h5{
+			font:17px/20px '微软雅黑';
+			color: #1e73be;
+			display: inline;
+			line-height: 28px;
+		}
+		#aside:first-child{
+			margin-top: 20px;
+		}
+		#aside a{
+			display: block;
+			text-decoration: none;
+			color: #1e73be;
+			font-size: 14px;
+			line-height: 25px;
+		}
+		#aside a:hover{
+			color: #000;
+		}
+
+		#main:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		footer{
+			height: 65px;
+			background: #222;
+		}
+		footer h2{
+			padding: 20px 0;
+			font: 17px/22px '微软雅黑';
+			color: white;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<div id="all">
+			<img src="{{userinfo.url.url}}" title="头像">
+			<div id="hed">
+				<h1>{{userinfo.nickname}}的 Blog</h1>
+				<h3>{{userinfo.signature}}</h3>
+			</div>
+		</div>
+	</header>
+	<nav>
+		<ul>
+			<li><a href="#" style="background:#3f3f3f;" onclick="change(0)" o>日志</a></li>
+			<li><a href="#" onclick="change(1)">留言</a></li>
+			<li><a href="#" onclick="change(2)">**</a></li>
+			<li><a href="http://www.baidu.com" onclick="change(3)">搜索</a></li>
+		</ul>
+	</nav>
+	<form method="post" id="pubForm">
+		<input type="hidden" name="flag" value="index">
+		<input type="hidden" name="userid" value="{{userinfo.id}}">
+	</form>
+	<div id="main">
+		<div id="lside">
+			<div id="first">
+				{% for note in userinfo.notesArr %}
+				<article>
+					<h2>{{note.title}}</h2>
+					<time>{{note.time}}</time>
+					<label id="content">
+						<p>{{note.content}}</p>
+					</label>
+				</article>
+				{% endfor %}
+			</div>
+
+			<div id="second" style="display:none;">
+				<article>
+					<label id="content">
+						<p>******************************</p>
+					</label>
+				</article>
+				<article>
+					<label id="content">
+						<p>******************************</p>
+					</label>
+				</article>
+				<article>
+					<label id="content">
+						<p>******************************</p>
+					</label>
+				</article>
+
+			</div>
+			<div id="third" style="display:none;">
+
+
+				<article>
+					<h2>{{note.title}}</h2>
+					<time>{{note.time}}</time>
+					<label id="content">
+						<p>{{note.content}}</p>
+					</label>
+				</article>
+
+
+			</div>
+			<div id="fouth" style="display:none;">
+				<article>
+					<label id="content">
+						<p>*搜索*</p>
+					</label>
+				</article>
+			</div>
+		</div>
+		<div id="rside">
+		<div style="margin-top:5px;">
+
+
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=1&id=18903&auto=1&height=90"></iframe>
+		</div>
+			<div id="aside">
+				<h4>我的信息</h4>
+
+				<p><h5>昵称:</h5>{{userinfo.nickname}}</p>
+				<p><h5>性别:</h5>{{userinfo.sex}}</p>
+				<p><h5>个性签名:</h5>{{userinfo.signature}}</p>
+
+			</div>
+			<div id="aside">
+				<h4>近期文章</h4>
+				{% for note in userinfo.notesArr %}
+				<a href="#" onclick="skimnews({{note.id}})">{{note.title}}</a>
+				{% endfor %}
+			</div>
+			<div id="aside">
+				<h4>功能</h4>
+				<label id="publish" onclick="submitInfo(this)"><a href="#">发表帖子</a></label>
+				<label id="alter" onclick="submitInfo(this)"><a href="#">修改个人信息</a></label>
+			</div>
+		</div>
+	</div>
+	<footer><h2>******************************</h2></footer>
+
+
+	<script>
+		// 导航
+		var aA = document.getElementsByTagName('a');
+		var aDiv = document.getElementById('first');
+		var bDiv = document.getElementById('second');
+		var cDiv = document.getElementById('third');
+		var dDiv = document.getElementById('fouth');
+		function change(test){
+			for (var i = 0; i < 4; i++) {
+				aA[i].style.background = "#222";
+			}
+			aA[test].style.background = "#3f3f3f";
+
+			if (test==0) {
+				aDiv.style.display = "block";
+				bDiv.style.display = "none";
+				cDiv.style.display = "none";
+				dDiv.style.display = "none";
+			}
+			if (test==1) {
+				aDiv.style.display = "none";
+				bDiv.style.display = "block";
+				cDiv.style.display = "none";
+				dDiv.style.display = "none";
+			}
+			if (test==2) {
+				aDiv.style.display = "none";
+				bDiv.style.display = "none";
+				cDiv.style.display = "block";
+				dDiv.style.display = "none";
+			}
+			if (test==3) {
+				aDiv.style.display = "none";
+				bDiv.style.display = "none";
+				cDiv.style.display = "none";
+				dDiv.style.display = "block";
+			}
+		}
+
+
+
+	    /*悬浮特效*/
+	    function showinfo(element) {
+			document.getElementById("aaa").style.display = 'block';
+			// alert(element.id)
+		}
+		function hiddeinfo(element){
+			document.getElementById("aaa").style.display = 'none';
+		}
+
+		/*发布帖子*/
+		function submitInfo(element)
+		{
+			var infoForm = document.getElementById('pubForm')
+			if(element.id == 'publish')
+			{
+				infoForm.action = 'publishnote'
+			}else
+			{
+				infoForm.action = 'alterinfo'
+			}
+			// else{
+			// 	infoForm.action = 'host'
+			// }
+			infoForm.submit()
+		}
+
+		function skimnews(newsid){
+			window.location.href='detail?notesid='+newsid
+
+		}
+
+	</script>
+</body>
+</html>

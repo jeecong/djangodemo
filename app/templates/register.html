@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>博客注册</title>
+
+  <style type="text/css">
+    body{
+      background: url("/static/images/backg.jpg");
+      background-size:cover;
+    }
+    #con{
+      
+      width: 380px;
+      margin-left: 43%;
+    }
+
+    #sub{
+      width: 90px;
+      height: 35px;
+      background: #ffaec8;
+    }
+    #sub:hover{
+     background: #79aec8;
+    }
+    #set{
+      width: 90px;
+      height: 35px;
+      background: #ffaec8;
+      margin-left: 10px;
+    }
+    #set:hover{
+      background: #79aec8;
+    }
+    #username{
+      margin-top: 60px;
+    }
+  </style>
+
+
+  
+
+
+</head>
+<body>
+
+    <form action="" method="post" enctype="multipart/form-data">
+      <div id="con">账号：<input type="text" name="username" id="username"placeholder="请输入用户名"><span id='verfiyuser'></span><br><br>
+      密码：<input type="password" name="password" id="password" placeholder="请输入密码"><span id='verfiypass'></span><br><br>
+      确认：<input type="password" placeholder="请输入密码" id="repass"> <span id='verfiyrepass'></span><br><br>
+      昵称：<input type="text" name="nickname" placeholder="请设置昵称"><br><br>
+      性别：<input type="radio" name="sex" checked="checked" value="男">男
+            <input type="radio" name="sex" value="女">女<br><br>      
+      个性签名：<br>
+                <textarea name="signature" placeholder="给自己个性签名"></textarea><br><br>
+      用户头像：<input type="file" name="headerimg"><br><br>
+
+      <input id="sub" type="submit" value="确认注册">
+      <input id="set" type="reset" value="重写"></div>
+  </form>
+   
+                
+
+               
+   
+    <script type="text/javascript">
+    window.onload = function(){
+      //1.【验证密码的安全等级以及一致性】
+      //获取密码框和确认密码框
+      var passTxt=document.querySelector("[name=password]")
+      var repass = document.getElementById('repass')
+
+
+      //声明一个变量用于记录表单按钮是否允许提交
+      var isSubmit = false
+
+      //声明一个变量用于记录用户是否可用
+      var isUserAvailable = false 
+
+      //给密码框绑定失去焦点事件
+      passTxt.onblur = function(e){
+        
+        //获取密码框后面的提示语
+        var verfiypass=document.getElementById('verfiypass')
+
+        isSubmit=true
+
+        if (repass.value=='') {
+          isSubmit=false
+          //alert('请填写确认密码')
+        }
+        if (this.value=='') {
+          verfiypass.innerHTML = "密码为空"
+          verfiypass.style.color='red'
+          isSubmit=false
+        }else if (this.value.length<=3) {
+          verfiypass.innerHTML='密码等级弱'
+
+        }else if (this.value.length<=6) {
+          verfiypass.innerHTML='密码等级中'
+        }else{
+          verfiypass.innerHTML='密码等级强'
+        }
+      }
+      //验证两次密码是否一致
+      repass.onblur=function(e){
+
+        var verfiyrepass=document.getElementById('verfiyrepass')
+        
+        if(passTxt.value=='') {
+          isSubmit=false
+        }else if(repass.value==passTxt.value) {
+          //一致
+          verfiyrepass.innerHTML='√'
+          verfiyrepass.style.color='green'
+          isSubmit=true
+
+        }else{
+          //不一致
+          verfiyrepass.innerHTML='密码不一致'
+          verfiyrepass.style.color='red'
+          isSubmit=false
+
+        }
+      }
+
+      //2.【验证用户名是否可用】
+      var userTxt = document.querySelector('[name=username]')
+      var verfiyuser=document.getElementById('verfiyuser')
+      userTxt.onblur = function(e){
+        //构建ajax请求参数
+
+        var data = "username="+userTxt.value
+
+        //在这里需要发出一个异步请求，去查询用户名是否可用
+        //1.创建ajax对象
+        var xhr = new XMLHttpRequest()
+        //2.监听ajax对象的状态
+        xhr.onreadystatechange = function(event){
+          //每当ajax对象的异步请求进行一步，这个函数就会被调用一次
+          /**整个ajax的请求与响应有4个阶段，每个阶段都对应一个状态码
+          1、正在发送请求，即send方法开始调用
+          2、请求发送完毕，即send方法执行完毕
+          3、正在解析响应内容
+          4、响应内容解析完毕(响应成功)
+          **/
+          //alert(xhr.readyState)
+          //alert(xhr.status)
+          if (xhr.readyState==4) {
+            //说明响应成功
+            if (xhr.status==200) {
+              //说明响应内容正确
+              //说明响应内容的处理要在这里进行
+              //alert(xhr.responseText)
+              if (xhr.responseText) {
+                
+                //说明用户名存在，不可用
+                isUserAvailable = false
+                verfiyuser.innerHTML='已存在'
+
+              }else{
+                //说明用户名不存在
+                isUserAvailable = true
+                verfiyuser.innerHTML='可用'
+              }
+
+            }
+ 
+          }
+
+        }
+        //3.建立链接
+        xhr.open("post","ajaxhaddle",true)
+        //参数1:请求的方法(post或get)
+        //参数2:请求的接口
+        //参数3:是否为异步请求
+
+        //4.设置请求头
+        xhr.setRequestHeader('Content-type','application/x-www-form-urlencoded')
+
+        //5.发送数据
+        xhr.send(data)//对于POST请求，数据要在send里通过参数形式传送
+
+      }
+
+
+      //3.【处理提交按钮的提交事件】
+      document.querySelector('[type=submit]').onclick=function(e){
+        if (!isSubmit) {
+          e.preventDefault()
+        }
+        if (!isUserAvailable) {
+          e.preventDefault()
+        }
+      }
+
+    }
+
+  </script>
+</body>
+</html>

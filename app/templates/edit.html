@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	
+	<title>发布帖子</title>
+	
+	<style type="text/css">
+	body{
+		background: #efefef;
+	}
+		#beg{
+			margin-top: 60px;
+		}
+		.tit{
+			width: 500px;
+			height: 40px;
+		}
+		.con{
+			width: 500px;
+			height: 300px;
+		}
+		.btn{
+			width: 100px;
+			height: 40px;
+			background: #ffaec8;
+		}
+		.btn:hover{
+			background: #79aec8;
+		}
+		
+	</style>
+
+	
+</head>
+<body>
+	
+
+
+		<!-- 编辑帖子 -->
+		<div class="edit">
+			<h2 style="text-align: center;" id="beg">编辑帖子</h2>
+			<form method="post">
+				
+		  			<center><input type="text" class="tit" name="title" placeholder="请输入标题……"></center><br> 
+				
+        			<center><textarea class="con" name="content" cols="20" rows="10" placeholder="请输入帖子内容……"></textarea></center><br>
+        			<input type="hidden" name="flag" value="publish">
+        			<input type="hidden" name="id" value="{{pub.id}}">
+        			<center><button type="submit" class="btn">提交</button></center>
+
+			</form>
+		</div>
+
+
+	
+</body>
+</html>

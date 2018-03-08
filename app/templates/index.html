@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+
+	<title>首页</title>
+	<link rel="stylesheet" href="/static/css/shutter.css">
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			background: #efefef;
+		}
+		header{
+			width: 1300px;
+			height: 50px;
+			margin: 0 auto;
+			background: url("/static/images/backg.jpg");
+			background-size: cover;
+			/*background-position: 0 -40px;*/
+			border-radius: 10px;
+			margin-top: 5px;
+
+		}
+		header h2{
+			font-size: 45px;
+			line-height: 50px;
+			font-family: 宋体;
+			font-style: oblique;
+			margin-left: 40px;
+			letter-spacing: 3px;
+			color: #1D7D67;
+			float: left;
+		}
+		header nav{
+			float: right;
+		}
+		header nav a{
+			line-height: 50px;
+			margin-right: 10px;
+			text-decoration: none;
+			color: white;
+		}
+		header nav a:hover{
+			color: #121216;
+		}
+		.shutter{
+			margin-top: 5px;
+		}
+		#main{
+			width: 1200px;
+			margin: 0 auto;
+		}
+		/*.lisde{
+			width: 60%;
+			float: left;
+			margin-left: 0px;
+			border:1px solid red;
+		}*/
+		article{
+			background: white;
+			margin-bottom: 20px;
+			padding: 40px;
+			position: relative;
+			border-radius: 8px;
+		}
+		article img{
+			width: 100px;
+			height: 100px;
+			border-radius: 50px;
+			transition: all 2s;
+		}
+		article img:hover{
+			width:200px;
+			height: 200px;
+			border-radius: 100px;
+			transform:rotate(360deg);
+		}
+		article h2{
+			font:30px/36px '微软雅黑';
+			color: #1e73be;
+		}
+		article time{
+			font-size: 12px;
+			line-height: 18px;
+			color: #888;
+		}
+		article p{
+			margin-top: 20px;
+			font-size: 15px;
+			line-height: 29px;
+			color: #3a3a3a;
+		}
+		#rightname{
+			position: absolute;
+			top: 70px;
+			left: 155px;
+		}
+		#rightname h5{
+			margin-top: 10px;
+			color: #698192;
+		}
+
+		/*#rside{
+			width: 300px;
+			float: right;
+		}*/
+		#aside{
+			background: white;
+			margin-bottom: 20px;
+			padding: 40px;
+			border-radius: 8px;
+			min-height:200px;
+		}
+		#aside h4{
+			font-size: 20px;
+			margin-bottom: 30px;
+		}
+		#aside h5{
+			font:17px/20px '微软雅黑';
+			color: #1e73be;
+			display: inline;
+			line-height: 28px;
+		}
+		#aside img{
+			margin: 5px;
+			-webkit-animation: rotateImg 10s linear infinite;
+			vertical-align:middle;
+		}
+		@keyframes rotateImg{
+			0%{transform:rotate(0deg);}
+			100%{transform:rotate(360deg);}
+		}
+		@-webkit-keyframes rotateImg{
+			0%{-webkit-transform: rotate(0deg);}
+			100%{-webkit-transform: rotate(360deg);}
+		}
+		#aside a{
+
+			text-decoration: none;
+			color: #1e73be;
+			font-size: 17px;
+			line-height: 35px;
+		}
+		#aside a:hover{
+			color: #000;
+		}
+		#aside p{
+			color: #8C75A0;
+			font-size: 12px;
+		}
+		#main:after{
+			content: "";
+			display: block;
+			clear: both;
+		}
+		footer{
+			width: 1330px;
+			height: 65px;
+			margin: 0 auto;
+			background: #2A2F3B;
+			border-radius: 5px;
+		}
+		footer h2{
+			padding: 20px 0;
+			font: 17px/22px '微软雅黑';
+			color: white;
+			text-align: center;
+		}
+		footer h2:hover{
+			color: #C725DB;
+			font-size: 24px;
+		}
+
+		}
+	</style>
+
+</head>
+<body>
+<header>
+	<h2>Welcome to our Blog!</h2>
+	<nav>
+		<a href="pubregister">注册</a>
+		<a href="publogin">登录</a>
+		<a href="http://127.0.0.1:8000/admin">管理员</a>
+	</nav>
+</header>
+<div class="shutter">
+<div class="shutter-img">
+  <a href="#" data-shutter-title="多出去转转，记录点滴"><img src="/static/images/shutter_1.jpg" alt="#"></a>
+  <a href="#" data-shutter-title="放飞心情，记录点滴"><img src="/static/images/shutter_2.jpg" alt="#"></a>
+  <a href="#" data-shutter-title="感受风景，记录点滴"><img src="/static/images/shutter_3.jpg" alt="#"></a>
+   <a href="#" data-shutter-title="面朝大海，记录点滴"><img src="/static/images/shutter_4.jpg" alt="#"></a>
+</div>
+<ul class="shutter-btn">
+  <li class="prev"></li>
+  <li class="next"></li>
+</ul>
+<div class="shutter-desc">
+  <p>面朝大海，记录点滴</p>
+</div>
+</div>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/velocity.js"></script>
+<script src="/static/js/shutter.js"></script>
+<script>
+$(function () {
+  $('.shutter').shutter({
+	shutterW: 1300, // 容器宽度
+	shutterH: 585, // 容器高度
+	isAutoPlay: true, // 是否自动播放
+	playInterval: 3000, // 自动播放时间
+	curDisplay: 3, // 当前显示页
+	fullPage: false // 是否全屏展示
+  });
+});
+</script>
+
+	<div id="main">
+
+		<div class="lside" style="width:850px;float:left;">
+
+				{% for note in noteArr %}
+				<article>
+					<div id="tupian" style="margin-bottom:10px;">
+					<img src="{{note.publisher.url.url}}" title="{{note.publisher.nickname}}">
+					<label id="rightname">
+					<h4>{{note.publisher.nickname}}</h4>
+					<h5>{{note.publisher.signature}}</h5>
+					</label>
+					</div>
+					<h2>{{note.note.title}}</h2>
+					<time>{{note.note.time}}</time>
+					<p>{{note.note.content}}</p>
+
+				</article>
+				{% endfor %}
+
+		</div>
+		<div class="rside" style="width: 300px;float: right;" >
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=110 src="//music.163.com/outchain/player?type=1&id=36842010&auto=1&height=90" style=""></iframe>
+			<div id="aside">
+				<h4>在线人员</h4>
+				{% for note in noteArr %}
+				<img class="imgsss" src="{{note.publisher.url.url}}" title="{{note.publisher.nickname}}" style="width:60px;height:60px;border-radius: 30px;">
+				{% endfor %}
+			</div>
+
+			<div id="aside">
+				<h4>近期文章</h4>
+				{% for note in noteArr %}
+				<div id="happ">
+				<a href="#" style="display:inline;">{{note.note.title}}</a>
+				<P style="display:inline;">作者：{{note.publisher.nickname}}</P>
+				</div>
+				{% endfor %}
+			</div>
+
+			<div id="aside">
+				<h4>功能</h4>
+				<label id="publish" ><a href="publogin">登录</a></label><br>
+				<label id="alter"><a href="pubregister">注册</a></label>
+			</div>
+
+
+
+		</div>
+	</div>
+	<footer><h2>******************************</h2></footer>
+
+<!-- <script type="text/javascript">
+
+	function skimnews(newsid){
+		window.location.href='details?notesid='+newsid
+	}
+</script> -->
+
+
+</body>
+</html>
